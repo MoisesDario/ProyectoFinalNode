@@ -4,9 +4,7 @@ $(function(){
         $.ajax({
             url: '/productos',
             success: function(productos){
-                //console.log(productos);
                 let tbody = $('tbody');
-
                 tbody.html(''); //Limpiar la tabla
                 productos.forEach(productos => {
                     tbody.append(`
