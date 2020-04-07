@@ -18,25 +18,25 @@ jobs:
             command: echo ${CIRCLE_BRANCH}
             - node/with-cache:
             steps: 
-            - run:
-            name: update-npm
-            command: 'sudo npm install -g npm@latest'
-            - restore_cache:
-            key: dependency-cache-{{ checksum "package.json" }}
-            - run: install dependencies
-            - save_cache:
-            key: dependency-cache-{{ checksum "package.json" }}
-            paths:
-            - ./node_modules
-            - run: 
-                name: test
-                command: node src
-            - run: |
-            if [[ $(cat my_workspace/echo-output) == "Trying out workspaces" ]]; then
-            echo "It worked!";
-            else
-            echo "Nope!"; exit 1
-            fi
+                - run: install dependencies
+                - run:
+                name: update-npm
+                command: 'sudo npm install -g npm@latest'
+                - restore_cache:
+                key: dependency-cache-{{ checksum "package-lock.json" }}
+                - save_cache:
+                key: dependency-cache-{{ checksum "package-lock.json" }}
+                paths:
+                - ./node_modules
+                - run: 
+                    name: test
+                    command: node src
+                - run: |
+                if [[ $(cat my_workspace/echo-output) == "Trying out workspaces" ]]; then
+                echo "It worked!";
+                else
+                echo "Nope!"; exit 1
+                fi
 workflows:
     build-and-test:
         jobs:
