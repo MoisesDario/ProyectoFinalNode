@@ -1,14 +1,14 @@
 version: 2.1
 jobs:
     build-and-test:
+        working_directory: ~/ProyectoFinalNode
         docker:
             - image: circleci/node:latest
         steps:
             - checkout
             - setup_remote_docker
             - run: Install npm dependencies
-            - run:
-                name: update-npm
+            - run: update-npm
             - restore_cache:
                 key: dependency-cache-{{ checksum "package-lock.json" }}
             - save_cache:
