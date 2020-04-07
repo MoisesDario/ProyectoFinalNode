@@ -23,7 +23,7 @@ jobs:
                 command: node src
             - run:
                 name: Dotenv
-                command: npm install --save module_name
+                command: npm install dotenv
 workflows:
     build-and-test:
         jobs:
