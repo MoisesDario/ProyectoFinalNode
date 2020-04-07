@@ -1,20 +1,17 @@
-version: 2.0
-
-orbs:
-  node: circleci/node@8.10.0
+version: 2
 jobs:
-  run_test:
+  build:
     docker: 
-    - image: mdflvan/node:12
+    - image: circleci/node:4.8.2
     working_directory: ~/repo
       steps:
         - checkout 
         - run: npm install -g nodemon
         - run: npm install
-        - store_test_results:
-          path: test_results
+        - save_cache: 
+          key: npm-cache-{{.Branch}}-{{checksum "package.json"}}
+          path:
+            - node_modules
 workflows:
-  version: 2
-  workflow:
-    jobs:
-    - run_test 
+jobs:
+- run_test 
