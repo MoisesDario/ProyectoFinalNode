@@ -7,19 +7,12 @@ jobs:
         - image: circleci/node:carbon-alpine
     steps:
       - checkout      
-        steps:
-            - run: npm install
-            - run: install npm dependencies
-            command: |
-                npm install --save
-            - run:
-                name: Run Unit Test
-                command: |
-                    ./node_modules/nodemon/bin/nodemon
-            - store_test_results:
-                path: test-results
-            - store_artifacts:
-                path: test-results
+          - run: npm install
+          - run: install npm dependencies
+          command: |
+              npm install --save
+          - run:
+              name: Run Unit Test
 workflows:
     build-and-test:
       jobs:
