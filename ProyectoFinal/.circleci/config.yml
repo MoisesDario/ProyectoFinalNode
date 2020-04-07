@@ -13,7 +13,9 @@ jobs:
 
     steps:
       - checkout
-
+      - run: 
+        name: Show current branch
+        command: echo ${CIRCLE_BRANCH}
       - node/with-cache:
           steps:            
             - run:
