@@ -20,7 +20,7 @@ jobs:
                 command: npm run test
             - run:
                 name: Ejecucion
-                command: npm run dev
+                command: node src
 workflows:
     build-and-test:
         jobs:
