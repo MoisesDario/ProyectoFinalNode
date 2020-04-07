@@ -4,7 +4,6 @@ const express = require ('express');
 const morgan = require('morgan');
 const path = require('path');
 
-const app = express();
 
 //Database
 const productos = [
