@@ -1,20 +1,16 @@
-version: 2.1
+version: 2.0
 
 orbs:
   node: circleci/node@8.10.0
 jobs:
   run_test:
-    build:
-      docker: 
-      - image: mdflvan/proyectofinal
+    docker: 
+    - image: mdflvan/proyectofinal:latest
+    working_directory: ~/repo
       steps:
         - checkout 
         - run: npm install -g nodemon
         - run: npm install
-        - run: 
-          name: Run Unit test_results
-          command: |
-            ./node_module/nodemon/bin/nodemonsrc dev
         - store_test_results:
           path: test_results
 workflows:
@@ -22,4 +18,3 @@ workflows:
   workflow:
     jobs:
     - run_test 
-    - build
