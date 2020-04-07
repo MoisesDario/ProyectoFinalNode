@@ -26,7 +26,7 @@ jobs:
                     - ./node_modules
             - run: 
                 name: Testing
-                command: npm src          
+                command: npm test         
 workflows:
     build-and-test:
         jobs:
