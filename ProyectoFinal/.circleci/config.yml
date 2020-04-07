@@ -3,13 +3,17 @@ orbs:
   node: circleci/node@1.1.6
 jobs:
   run_test:
-    docker:
-        - image: circleci/node:carbon-alpine
-    steps:
-      - checkout      
-        steps:
-          - run: npm install
+    executor:
+      docker:
+          - image: circleci/node:carbon-alpine
+      steps:
+        - checkout      
+          steps:
+            - run: npm install
+            - run:
+              name: Make
+              command: node src
 workflows:
-    build-and-test:
+    run_test:
       jobs:
         - run_test
