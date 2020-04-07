@@ -14,21 +14,22 @@ jobs:
             - run: 
             name: Show current branch
             command: echo ${CIRCLE_BRANCH}
-            - node/with-cache:
+
             steps: 
-                - run: install dependencies
+                - run: 
+                    name: install dependencies
+                    command: |
+                    npm install --save
                 - run:
-                name: update-npm
-                command: 'sudo npm install -g npm@latest'
-                - restore_cache:
-                key: dependency-cache-{{ checksum "package-lock.json" }}
-                - save_cache:
-                key: dependency-cache-{{ checksum "package-lock.json" }}
-                paths:
-                - ./node_modules
+                    name: update-npm
+                    command: 'sudo npm install -g npm@latest'
+               - run:
+                    name: Run Unit Tests
+                    command: |
+                    ./node_modules
                 - run: 
                     name: test
-                    command: node src
+                    command: npm dev
                 - run: |
                 if [[ $(cat my_workspace/echo-output) == "Trying out workspaces" ]]; then
                 echo "It worked!";
