@@ -1,8 +1,9 @@
 version: 2.1
 jobs:
   run_tests:
+    build:
     docker: 
-      - image: circleci/node:carbon-alpine
+      - image: .circleci/node:carbon-alpine
     steps:
       - checkout
         steps:
