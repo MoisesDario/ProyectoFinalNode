@@ -1,33 +1,38 @@
-
-version: 2
+version: 2.1
+orbs:
+  node: circleci/node@1.1.6
 jobs:
-  build:
-    docker:
-    - image: circleci/node:latest
+  build-and-test:
+    executor:
+      name: node/default
+      build:
+        docker:
+        - image: circleci/node:latest
 
-    working_directory: ~/repo
+      working_directory: ~/project
 
     steps:
-    - checkout
+      - checkout
 
-      - restore_cache:
-        keys: 
-        - v1-dependency-{{ checksum "package.json" }}
-        - v1-dependencies
-
-      - run: yarn install
-
-      - save_cache:
-        paths:
-        - ./node_modules
-        key: v1-dependencies-{{ checksum "package.json" }}
-
-      - run:
-        name: Testing
-        command: npm run dev
-
+      - node/with-cache:
+          steps:
+            - run: npm install
+            - restore_cache:
+              keys: 
+              - v1-dependencies-{{ checksum "package.json" }}
+              - v1-dependencies
+      
+            - run: install dependencies
+      
+            - save_cache:
+              paths:
+              - ./node_modules
+              key: v1-dependencies-{{ checksum "package.json" }}
+      
+            - run:
+              name: Testing
+              command: node src
 workflows:
-  version: 2
-  build:
+  build-and-test:
     jobs:
-      - build
+      - build-and-test
