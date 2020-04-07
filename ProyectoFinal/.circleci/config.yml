@@ -15,8 +15,11 @@ jobs:
       - checkout
 
       - node/with-cache:
-          steps:
-            - run: npm install
+          steps:            
+            - run:
+              name: update-npm
+              command: 'sudo npm install -g npm@latest'
+
             - restore_cache:
               keys: 
               - v1-dependencies-{{ checksum "package.json" }}
@@ -25,13 +28,13 @@ jobs:
             - run: install dependencies
       
             - save_cache:
+              key: dependency-cache-{{ checksum "package.json" }}
               paths:
               - ./node_modules
-              key: v1-dependencies-{{ checksum "package.json" }}
       
             - run:
               name: Testing
-              command: node src
+              command: npm test
 workflows:
   build-and-test:
     jobs:
