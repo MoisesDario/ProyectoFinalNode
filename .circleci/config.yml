@@ -9,6 +9,7 @@ jobs:
         steps:
             - checkout
             - setup_remote_docker
+            - add_ssh_keys
             - run:
                 name: Set Up Docker Command
                 command: |
@@ -25,7 +26,7 @@ jobs:
                     - ./node_modules
             - run: 
                 name: Testing
-                command: npm run test          
+                command: npm src          
 workflows:
     build-and-test:
         jobs:
