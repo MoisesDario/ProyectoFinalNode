@@ -5,9 +5,8 @@ jobs:
             - image: circleci/node:latest
         steps:
             - checkout
-            -setup_remote_docker
-            - run:
-                name: Install npm dependencies
+            - setup_remote_docker
+            - run: Install npm dependencies
             - run:
                 name: update-npm
             - restore_cache:
