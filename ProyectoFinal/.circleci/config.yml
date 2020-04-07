@@ -2,23 +2,26 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/ProyectoFinalNode
     docker:
-    - image: MoisesDario/node:12
+    - image: circleci/node:7.10
+
+    working_directory: ~/repo
+
     steps:
     - checkout
-      - run:
-      name: update-npm
-      command: 'sudo npm install -g npm@5'
+
       - restore_cache:
-      key: dependency-cache-{{ checksum "package.json" }}
-      - run:
-      name: install-npm-wee
-      command: npm install
+        keys: 
+        - v1-dependency-{{ checksum "package.json" }}
+        - v1-dependencies
+
+      - run: yarn install
+
       - save_cache:
-      key: dependency-cache-{{ checksum "package.json" }}
-      paths:
-      - ./node_modules
+        paths:
+        - ./node_modules
+        key: v1-dependencies-{{ checksum "package.json" }}
+
       - run:
-      name: test
-      command: npm test
+      name: node src
+      command: node src
