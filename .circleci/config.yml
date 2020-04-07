@@ -18,6 +18,9 @@ jobs:
             - run: 
                 name: Testing
                 command: npm run test
+            - run: 
+                name: Install local dependecies
+                command: npm Install
 workflows:
     build-and-test:
         jobs:
