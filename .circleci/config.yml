@@ -9,6 +9,14 @@ jobs:
         steps:
             - checkout
             - setup_remote_docker
+            - run:
+                name: Set Up Docker Command
+                command: |
+                    if [[ $CIRCLE_SHELL_ENV == *"localbuild"* ]]; then
+                        echo "export docker='sudo docker'" >> $BASH_ENV
+                    else
+                        echo "export docker='docker'" >> $BASH_ENV
+                    fi
             - restore_cache:
                 key: dependency-cache-{{ checksum "package-lock.json" }}
             - save_cache:
@@ -17,13 +25,7 @@ jobs:
                     - ./node_modules
             - run: 
                 name: Testing
-                command: npm run test
-            - run:
-                name: Ejecucion
-                command: node src
-            - run:
-                name: all
-                command: npm install --save module_name
+                command: npm run test          
 workflows:
     build-and-test:
         jobs:
