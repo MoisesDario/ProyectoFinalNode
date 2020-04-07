@@ -2,7 +2,7 @@ version: 2.1
 orbs:
     node: circleci/node@1.1.6
 jobs:
-    run_test:
+    build-and-test:
         docker:
             - image: circleci/node:latest
         steps:
@@ -25,4 +25,4 @@ jobs:
 workflows:
     build-and-test:
         jobs:
-            - run_test
+            - build-and-test
