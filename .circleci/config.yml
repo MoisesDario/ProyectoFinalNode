@@ -18,12 +18,6 @@ jobs:
             - run: 
                 name: Testing
                 command: npm run test
-            - run:
-                name: Dotenv
-                command: npm install dotenv
-            - run:
-                name: ejecucion
-                command: node src
 workflows:
     build-and-test:
         jobs:
