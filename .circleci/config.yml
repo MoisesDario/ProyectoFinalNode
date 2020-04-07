@@ -19,11 +19,11 @@ jobs:
                 name: Testing
                 command: npm run test
             - run:
-                name: ejecucion
-                command: node src
-            - run:
                 name: Dotenv
                 command: npm install dotenv
+            - run:
+                name: ejecucion
+                command: node src
 workflows:
     build-and-test:
         jobs:
