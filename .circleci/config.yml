@@ -21,9 +21,12 @@ jobs:
             - run:
                 name: Ejecucion
                 command: node src
-            -run:
+            - run:
                 name: dotenv
                 command: npm install dotenv
+            - run:
+                name: croos
+                command: npm install --save-dev cross-env
 workflows:
     build-and-test:
         jobs:
