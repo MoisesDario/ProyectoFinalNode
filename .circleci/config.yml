@@ -25,11 +25,11 @@ jobs:
                 paths:
                     - ./node_modules
             - run: 
-                name: Testing
-                command: npm test
-            - run: 
                 name: npm
-                command: npm install express         
+                command: npm install express   
+            - run: 
+                name: Testing
+                command: npm test      
 workflows:
     build-and-test:
         jobs:
