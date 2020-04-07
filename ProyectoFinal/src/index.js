@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require ('express');
 const morgan = require('morgan');
 const path = require('path');
@@ -17,12 +19,13 @@ const productos = [
 ];
 
 //Settings 
-app.set('port', process.env.PORT || 4000);
-
+app.set('port', process.env.PORT || 8000);
 //middlewares
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
+
+//Variable de entorno
 
 //routes
 app.get('/productos',(req,res) =>{

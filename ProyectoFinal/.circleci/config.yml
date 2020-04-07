@@ -1,0 +1,26 @@
+vversion: 2.1
+orbs:
+  node: circleci/node@1.1.6
+jobs:
+  run_test:
+    docker:
+        - image: circleci/node:carbon-alpine
+    steps:
+      - checkout      
+        steps:
+            - run: npm install
+            - run: install npm dependencies
+            command: |
+                npm install --save
+            - run:
+                name: Run Unit Test
+                command: |
+                    ./node_modules/nodemon/bin/nodemon
+            - store_test_results:
+                path: test-results
+            - store_artifacts:
+                path: test-results
+workflows:
+    build-and-test:
+      jobs:
+        - run_test
