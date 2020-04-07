@@ -7,7 +7,6 @@ jobs:
             - image: circleci/node:latest
         steps:
             - checkout
-            - setup_docker
             - run:
                 name: Install npm dependencies
             - run:
@@ -18,10 +17,6 @@ jobs:
                 key: dependency-cache-{{ checksum "package-lock.json" }}
                 paths:
                     - ./node_modules
-            - run:
-                name: Run Unit Tests
-            - run: 
-                name: test
 workflows:
     build-and-test:
         jobs:
