@@ -6,16 +6,6 @@ jobs:
     executor:
       docker:
           - image: circleci/node:carbon-alpine
-      steps:
-        - checkout      
-          steps:
-            - run: npm install
-            - run:
-              name: Make
-              command: node src
-            - run:
-              name: Make
-              command: node src  
 workflows:
     run_test:
       jobs:
