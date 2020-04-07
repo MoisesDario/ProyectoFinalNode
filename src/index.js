@@ -27,7 +27,20 @@ app.use(express.json());
 
 //Variable de entorno
 
+//routes
+app.get('/productos',(req,res) =>{
+    res.json(productos)
+});
 
+app.post('/productos',(req,res) =>{
+    //console.log(req.body);
+    const {name} = req.body;
+    productos.push({
+        id: productos.length +1,
+        name 
+    });
+    res.json('Satisfactoriamente creado');
+});
 
 app.put('/productos/:id',(req,res) => {
     //console.log(req.params,req.body);
