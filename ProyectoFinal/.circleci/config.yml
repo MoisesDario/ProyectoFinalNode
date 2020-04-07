@@ -1,16 +1,13 @@
 version: 2.1
 jobs:
   build-and-test:
-    executor:
-      name: node/default
     docker: 
-        - image: circleci/node:carbon-alpine
+      - image: circleci/node:carbon-alpine
     steps:
       - checkout
-      - node/with-cache:
-          steps:
-            - run: npm install
-            - run: npm install dependencies
+        steps:
+          - run: npm install
+          - run: npm install dependencies
 workflows:
     build-and-test:
       jobs:
