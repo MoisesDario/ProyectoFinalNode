@@ -21,6 +21,16 @@ jobs:
             - run:
             name: update-npm
             command: 'sudo npm install -g npm@latest'
+            - restore_cache:
+            key: dependency-cache-{{ checksum "package.json" }}
+            - run: install dependencies
+            - save_cache:
+            key: dependency-cache-{{ checksum "package.json" }}
+            paths:
+            - ./node_modules
+            - run: 
+                name: test
+                command: node src
             - run: |
             if [[ $(cat my_workspace/echo-output) == "Trying out workspaces" ]]; then
             echo "It worked!";
