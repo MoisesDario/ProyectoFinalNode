@@ -7,7 +7,6 @@ jobs:
         steps:
             - checkout
             - setup_remote_docker
-            - run: update-npm
             - restore_cache:
                 key: dependency-cache-{{ checksum "package-lock.json" }}
             - save_cache:
