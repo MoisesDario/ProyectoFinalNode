@@ -11,13 +11,7 @@ jobs:
           - run: npm install
           - run: install npm dependencies
           command: |
-              npm install --save
-          - run:
-              name: Run Unit Test
-              command: |
-                  ./node_modules/nodemon/bin/nodemon
-              - store_test_results:
-                  path: test-results
+            npm install --save
 workflows:
     build-and-test:
       jobs:
