@@ -3,7 +3,7 @@ version: 2
 jobs:
   build:
     docker:
-    - image: circleci/node:7.10
+    - image: circleci/node:latest
 
     working_directory: ~/repo
 
@@ -23,5 +23,11 @@ jobs:
         key: v1-dependencies-{{ checksum "package.json" }}
 
       - run:
-      name: node src
-      command: node src
+        name: Testing
+        command: npm run dev
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build
