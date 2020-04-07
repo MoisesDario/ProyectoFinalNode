@@ -2,5 +2,5 @@ FROM node:carbon-alpine
 WORKDIR /usr/src/app
 COPY package*.json ./
 COPY . .
-EXPOSE 9005
+EXPOSE 9006
 CMD ["node","src"]

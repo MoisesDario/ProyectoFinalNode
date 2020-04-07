@@ -19,7 +19,7 @@ const productos = [
 ];
 
 //Settings 
-app.set('port', process.env.PORT || 8000);
+app.set('port', process.env.PORT || 9006);
 //middlewares
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended:false}));
