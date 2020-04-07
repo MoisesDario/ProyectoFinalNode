@@ -18,7 +18,7 @@ const productos = [
     }
 ];
 //Settings 
-app.set('port', process.env.PORT || 9006);
+app.set('port', process.env.PORT || 9007);
 app.set('host', process.env.MSQL_URL);
 app.set('db_port', process.env.DB_PORT);
 app.set('db_user', process.env.DB_USER);
