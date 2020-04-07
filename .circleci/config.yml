@@ -23,11 +23,8 @@ jobs:
                         - v1-npm-deps-        
                 - run:
                     name: Run Unit Tests
-                    command: |
-                    ./node_modules
                 - run: 
                     name: test
-                    command: npm dev
                 - run: |
                 if [[ $(cat my_workspace/echo-output) == "Trying out workspaces" ]]; then
                 echo "It worked!";
