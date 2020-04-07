@@ -15,7 +15,9 @@ jobs:
           - run:
               name: Run Unit Test
               command: |
-                  ./node_modules/nodemon/bin/postinstall
+                  ./node_modules/nodemon/bin/nodemon
+              - store_test_results:
+                  path: test-results
 workflows:
     build-and-test:
       jobs:
