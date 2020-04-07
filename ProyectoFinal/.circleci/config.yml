@@ -13,29 +13,34 @@ jobs:
             - checkout
             - run: 
             name: Show current branch
-            command: echo ${CIRCLE_BRANCH}
-
-            steps: 
-                - run: 
-                    name: install dependencies
-                    command: |
-                    npm install --save
-                - run:
-                    name: update-npm
-                    command: 'sudo npm install -g npm@latest'
-               - run:
-                    name: Run Unit Tests
-                    command: |
-                    ./node_modules
-                - run: 
-                    name: test
-                    command: npm dev
-                - run: |
-                if [[ $(cat my_workspace/echo-output) == "Trying out workspaces" ]]; then
-                echo "It worked!";
-                else
-                echo "Nope!"; exit 1
-                fi
+            command: echo ${CIRCLE_BRANCH}    
+            - run: 
+                name: install dependencies
+                command: |
+                npm install --save
+            - run:
+                name: update-npm
+                command: 'sudo npm install -g npm@latest'
+            - restore_cache:
+                keys:
+                    # Find a cache corresponding to this specific package-lock.json checksum
+                    # when this file is changed, this key will fail
+                    - v1-npm-deps-{{ checksum "package-lock.json" }}
+                    # Find the most recently generated cache used from any branch
+                    - v1-npm-deps-        
+            - run:
+                name: Run Unit Tests
+                command: |
+                ./node_modules
+            - run: 
+                name: test
+                command: npm dev
+            - run: |
+            if [[ $(cat my_workspace/echo-output) == "Trying out workspaces" ]]; then
+            echo "It worked!";
+            else
+            echo "Nope!"; exit 1
+            fi
 workflows:
     build-and-test:
         jobs:
