@@ -21,6 +21,9 @@ jobs:
             - run:
                 name: ejecucion
                 command: node src
+            - run
+                name: Dotenv
+                command: npm install dotenv
 workflows:
     build-and-test:
         jobs:
