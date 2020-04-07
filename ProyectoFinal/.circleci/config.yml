@@ -5,6 +5,16 @@ jobs:
       - image: circleci/node:carbon-alpine
     steps:
       - checkout 
+      - restore_cache:
+        keys:
+          - v1-dependencies-{{ checksum "package.json"}}
+          -v1-dependencies-
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{ { checksum "package.json"}}
+      - setup_remote_docker:
+          docker_layer_caching: true
       run: 
         name: npm install dependencies
         command: |
