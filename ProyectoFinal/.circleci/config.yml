@@ -1,0 +1,11 @@
+version: 2.1
+orbs:
+  node: circleci/node@8.10.0
+jobs:
+  build:
+    docker: 
+    - image: 'circleci/node:carbon-alpine'
+workflows:
+build-and-test:
+jobs:
+- build 
