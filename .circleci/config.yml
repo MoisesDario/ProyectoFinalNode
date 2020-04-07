@@ -12,11 +12,8 @@ jobs:
                 - checkout
                 - run: 
                     name: install dependencies
-                    command: |
-                    npm install --save
                 - run:
                     name: update-npm
-                    command: 'sudo npm install -g npm@latest'
                 - restore_cache:
                     keys:
                         # Find a cache corresponding to this specific package-lock.json checksum
