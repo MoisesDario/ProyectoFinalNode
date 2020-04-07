@@ -9,9 +9,6 @@ jobs:
       - checkout      
         steps:
           - run: npm install
-          - run: install npm dependencies
-          command: |
-            npm install --save
 workflows:
     build-and-test:
       jobs:
