@@ -1,14 +1,19 @@
 version: 2.1
 jobs:
-  build-and-test:
+  run_tests:
     docker: 
       - image: circleci/node:carbon-alpine
     steps:
       - checkout
         steps:
           - run: npm install
-          - run: npm install dependencies
+        - run:
+          - name: npm install dependencies
+          command: |
+            npm install --save
+          - run:
+            name: Run Unit Tests
 workflows:
-    build-and-test:
-      jobs:
-        - build-and-test
+  build-and-test:
+    jobs:
+      - run_tests
