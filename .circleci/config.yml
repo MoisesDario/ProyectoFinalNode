@@ -6,7 +6,7 @@ executors:
     docker:
         - image: circleci/node:carbon-alpine
     evironment:
-        -IMAGE_NAME: 'mdlfvan/proyectofinal'
+        - IMAGE_NAME: 'mdlfvan/proyectofinal'
 jobs:
     build:
         executor: custom-executor
