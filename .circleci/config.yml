@@ -2,7 +2,6 @@ version: 2
 orbs:
     node: circleci/node@1.0.0 
 jobs:
-    
     build:
         docker:
             - image: circleci/node:latest
@@ -12,9 +11,6 @@ jobs:
             - checkout
             - setup_remote_docker
             - add_ssh_keys
-            - run: 
-                name: Testing
-                command: npm install
             - run:
                 name: Set Up Docker Command
                 command: |
@@ -22,7 +18,7 @@ jobs:
                         echo "export docker='sudo docker'" >> $BUILDER_ENV
                         echo "export compose='sudo docker-compose'" >> $BUILDER_ENV
                     else
-                        echo "export compose='docker-compose'" >> $BASH_ENV
+                        echo "export compose='docker-compose'" >> $BUILDER_ENV
                         echo "export docker='docker'" >> $BUILDER_ENV
                     fi   
             - run:
