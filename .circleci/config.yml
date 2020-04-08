@@ -5,7 +5,7 @@ jobs:
     
     build:
         docker:
-            - image: circleci/node:carbon-alpine
+            - image: circleci/node:latest
         evironment:
             - IMAGE_NAME: 'mdlfvan/proyectofinal'
         steps: 
