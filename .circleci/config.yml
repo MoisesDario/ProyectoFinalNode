@@ -81,5 +81,5 @@ workflows:
         jobs:
             - build
             - testing
-            requires:
-                - build
+                requires:
+                    - build
