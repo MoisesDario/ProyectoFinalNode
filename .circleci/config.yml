@@ -6,11 +6,6 @@ executors:
         working_directory: ~/ProyectoFinalNode
         docker:
             - image: circleci/node:latest
-        enviroment: 
-            - IMAGE_NAME: mdlfvan/proyectofinal
-            - BUILDER_TAG: builder
-            - DESARROLLO_TAG: desarrollo
-            - LATEST_TAG: latest
 jobs:
     build:
         executor: custom-executor
@@ -25,9 +20,9 @@ jobs:
                 name: Set Up Docker Command
                 command: |
                     if [[ $CIRCLE_SHELL_ENV == *"localbuild"* ]]; then
-                        echo "export docker='sudo docker'" >> $BASH_ENV
+                        echo "export docker='sudo docker'" >> $BUILDER_ENV
                     else
-                        echo "export docker='docker'" >> $BASH_ENV
+                        echo "export docker='docker'" >> $BUILDER_ENV
                     fi       
                     - run:
                         name: Build Images
