@@ -18,6 +18,9 @@ jobs:
             - checkout
             - setup_remote_docker
             - add_ssh_keys
+            - run: 
+                name: Testing
+                command: npm install
             - run:
                 name: Set Up Docker Command
                 command: |
@@ -50,9 +53,6 @@ jobs:
                 paths:
                     - desarrollo.tar
                     - latest.tar   
-            - run: 
-                name: Testing
-                command: npm install    
 Testing:
     executor: custom-executor
     steps:
@@ -60,11 +60,11 @@ Testing:
         - run:
             name: Set Up Docker Command
             command: |
-            if [[ $CIRCLE_SHELL_ENV == *"localbuild"* ]]; then
-                echo "export docker='sudo docker'" >> $BUILDER_ENV
-            else
-                echo "export docker='docker'" >> $BUILDER_ENV
-            fi
+                if [[ $CIRCLE_SHELL_ENV == *"localbuild"* ]]; then
+                    echo "export docker='sudo docker'" >> $BUILDER_ENV
+                else
+                    echo "export docker='docker'" >> $BUILDER_ENV
+                fi
         - attach_workspace:
             at: ~/tags
         - run:
