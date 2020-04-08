@@ -1,8 +1,8 @@
 version: 2.1
 orbs:
     node: circleci/node@1.0.0 
-build_test:
-    working_directory: ~/ProyectoFinalNode
+executors:
+    custom-executor:
     docker:
         - image: circleci/node:latest
 jobs:
