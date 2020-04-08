@@ -44,7 +44,6 @@ jobs:
             - run:
                 name: Archive Docker Images
                 command: |
-                    $docker save -o ~/tags/$DESAROLLO_TAG.tar $IMAGE_NAME:$DESARROLLO_TAG
                     $docker save -o ~/tags/$LATEST_TAG.tar $IMAGE_NAME:$LATEST_TAG
             - persist_to_workspace:
                 root: ~/tags
@@ -78,13 +77,8 @@ workflows:
     build_public:
         jobs:
             - build
-            - testing:
-                requires:
-                    - build
             - public:
                 context: DockerHub
-                requires: 
-                    - testing
                 filters:
                     branches:
                         only: master
