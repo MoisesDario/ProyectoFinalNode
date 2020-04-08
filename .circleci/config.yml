@@ -46,28 +46,6 @@ jobs:
             paths:
                 - desarrollo.tar
                 - latest.tar   
-testing:
-    executor: custom-executor
-    steps:
-        - setup_remote_docker
-        - run:
-            name: Set Up Docker Command
-            command: |
-                if [[ $CIRCLE_SHELL_ENV == *"localbuild"* ]]; then
-                    echo "export docker='sudo docker'" >> $BUILDER_ENV
-                else
-                    echo "export docker='docker'" >> $BUILDER_ENV
-                fi
-        - attach_workspace:
-            at: ~/tags
-        - run:
-            name: Load Archived Docker Desarrollo Image
-            command: |
-                $docker load -i ~/tags/$DESARROLLO_TAG.tar
-        - run:
-            name: Run Unit Test
-            command: |
-                $docker run -it $IMAGE_NAME:$DESARROLLO_TAG sh -c 'node testing ./...'
 public:
     executor: custom-executor
     steps:
@@ -96,9 +74,6 @@ workflows:
     build_test:
         jobs:
             - build
-            - testing:
-                requires:
-                    - build
             - public:
                 context: DockerHub
                 requires: 
