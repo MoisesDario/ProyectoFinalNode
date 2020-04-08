@@ -1,0 +1,11 @@
+version: '3.7'
+services: 
+    app: 
+        build: 
+            context: 
+            targed: desarrollo
+        image: 'mdlfvan/proyectofinal:latest' 
+        ports: 
+            - '9007:9007'
+        volumes:
+            - .:/usr/src/app/node

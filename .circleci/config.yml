@@ -1,12 +1,20 @@
 version: 2.1
 orbs:
-    node: circleci/node@1.0.0
-jobs:
-    build-and-test:
+    node: circleci/node@1.0.0 
+executors:
+    custom-executor:
         working_directory: ~/ProyectoFinalNode
         docker:
             - image: circleci/node:latest
-        steps:
+        enviroment: 
+            - IMAGE_NAME: mdlfvan/proyectofinal
+            - BUILDER_TAG: builder
+            - DESARROLLO_TAG: desarrollo
+            - LATEST_TAG: latest
+jobs:
+    build:
+        executor: custom-executor
+        steps: 
             - checkout
             - setup_remote_docker
             - add_ssh_keys
@@ -17,7 +25,31 @@ jobs:
                         echo "export docker='sudo docker'" >> $BASH_ENV
                     else
                         echo "export docker='docker'" >> $BASH_ENV
-                    fi          
+                    fi       
+                    - run:
+                        name: Build Images
+                        command: |
+                          $docker build -t $IMAGE_NAME:$BUILDER_TAG --target=$BUILDER_TAG .
+                          $docker build \
+                            --cache-from $IMAGE_NAME:$BUILDER_TAG \
+                            -t $IMAGE_NAME:$DESARROLLO_TAG --target=$DESARROLLO_TAG .
+                          $docker build \
+                            --cache-from $IMAGE_NAME:$BUILDER_TAG \
+                            --cache-from $IMAGE_NAME:$DESARROLLO_TAG \
+                            -t $IMAGE_NAME:$LATEST_TAG .
+            - run:
+                name: Create Tags Directory
+                command: mkdir -p ~/tags
+            - run:
+                name: Archive Docker Images
+                command: |
+                    $docker save -o ~/tags/$DESAROLLO_TAG.tar $IMAGE_NAME:$DESARROLLO_TAG
+                    $docker save -o ~/tags/$LATEST_TAG.tar $IMAGE_NAME:$LATEST_TAG
+            - persist_to_workspace:
+                root: ~/tags
+                paths:
+                    - desarrollo.tar
+                    - latest.tar   
             - run: 
                 name: Testing
                 command: npm install     

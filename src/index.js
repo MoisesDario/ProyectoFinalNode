@@ -1,5 +1,35 @@
 require('dotenv').config();
-
+const AWS = require('aws-sdk');
+const fs = require('fs');
+const s3 =  new AWS.S3({
+accessKeyId: "AKIA2GHNHVJZHMEUU54B",
+secretAccessKey: "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"
+});
+console.log("Escritura y Lectura de S3");
+var ObjetosGetObj = {
+    Bucket: 'nodes3-demo',
+    Key: 'imagen/nodes3.jpeg',
+}
+s3.getObject(ObjetosGetObj,(err,data) =>{
+    if(err) throw err;
+    console.log(data);
+    fs.writeFile("Node.jpeg", data.Body,'binary',(err) =>{
+        if(err) throw err;
+        console.log("Imagen grabada al disco.");
+    })
+})
+fs.readFile("texto.txt",(err,data) =>{
+    if(err) throw err;
+    var txtPutObject ={
+        Bucket: 'nodes3-demo',
+        Key: 'texto.txt',
+        Body: data
+    }
+    s3.putObject(txtPutObject,(err,data) => {
+        if(err) throw err;
+        console.log(data);
+    })
+})
 const express = require ('express');
 const morgan = require('morgan');
 const path = require('path');
