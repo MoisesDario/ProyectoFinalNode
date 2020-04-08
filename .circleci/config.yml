@@ -2,32 +2,33 @@ version: 2
 orbs:
     node: circleci/node@1.0.0 
 jobs:
-    build_test:
-        build:
-            docker:
-                - image: circleci/node:carbon-alpine
-            evironment:
-                - IMAGE_NAME: 'mdlfvan/proyectofinal'
-            steps: 
-                - checkout
-                - setup_remote_docker
-                - add_ssh_keys
-                - run: 
-                    name: Testing
-                    command: npm install
-                - run:
-                    name: Set Up Docker Command
-                    command: |
-                        if [[ $CIRCLE_SHELL_ENV == *"localbuild"* ]]; then
-                            echo "export docker='sudo docker'" >> $BUILDER_ENV
-                            echo "export compose='sudo docker-compose'" >> $BUILDER_ENV
-                        else
-                            echo "export compose='docker-compose'" >> $BASH_ENV
-                            echo "export docker='docker'" >> $BUILDER_ENV
-                        fi   
-                - run:
-                    name: Build Images
-                    command: |
-                        $docker-compose -f docker-compose.desarrollo.yml build
-                        $docker-compose -f docker-compose.yml build
+    
+    build:
+        docker:
+            - image: circleci/node:carbon-alpine
+        evironment:
+            - IMAGE_NAME: 'mdlfvan/proyectofinal'
+        steps: 
+            - checkout
+            - setup_remote_docker
+            - add_ssh_keys
+            - run: 
+                name: Testing
+                command: npm install
+            - run:
+                name: Set Up Docker Command
+                command: |
+                    if [[ $CIRCLE_SHELL_ENV == *"localbuild"* ]]; then
+                        echo "export docker='sudo docker'" >> $BUILDER_ENV
+                        echo "export compose='sudo docker-compose'" >> $BUILDER_ENV
+                    else
+                        echo "export compose='docker-compose'" >> $BASH_ENV
+                        echo "export docker='docker'" >> $BUILDER_ENV
+                    fi   
+            - run:
+                name: Build Images
+                command: |
+                    $docker-compose -f docker-compose.desarrollo.yml build
+                    $docker-compose -f docker-compose.yml build
+
 
