@@ -3,7 +3,7 @@ services:
     app: 
         build: 
             context: 
-            dockerfile: dockerfile    
+            dockerfile: Dockerfile    
             targed: desarrollo
         image: 'mdlfvan/proyectofinal:desarrollo' 
         ports: 
