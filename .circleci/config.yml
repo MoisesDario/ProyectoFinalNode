@@ -28,6 +28,7 @@ jobs:
                     $docker-compose -f docker-compose.yml build
 workflows:
     version: 2
-        jobs:
-            - build
+        build:
+            jobs:
+                - build
 
