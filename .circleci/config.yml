@@ -15,14 +15,19 @@ jobs:
                 name: Set Up Docker Command
                 command: |
                     if [[ $CIRCLE_SHELL_ENV == *"localbuild"* ]]; then
-                        echo "export docker='sudo docker'" >> $BASH_ENV
+                        echo "export docker='sudo docker'" >> $BUILDER_ENV
+                        echo "export compose='sudo docker-compose'" >> $BUILDER_ENV
                     else
-                        echo "export docker='docker'" >> $BASH_ENV
-                    fi
+                        echo "export compose='docker-compose'" >> $BASH_ENV
+                        echo "export docker='docker'" >> $BUILDER_ENV
+                    fi   
             - run:
                 name: Build Images
                 command: |
                     $docker-compose -f docker-compose.desarrollo.yml build
                     $docker-compose -f docker-compose.yml build
-
+workflows:
+    version: 2
+        jobs:
+            - build
 
