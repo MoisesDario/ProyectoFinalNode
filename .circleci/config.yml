@@ -82,22 +82,22 @@ public:
         - run:
             name: Set Up Docker Command
             command: |
-            if [[ $CIRCLE_SHELL_ENV == *"localbuild"* ]]; then
-                echo "export docker='sudo docker'" >> $BUILD_ENV
-            else
-                echo "export docker='docker'" >> $BUILD_ENV
-            fi
+                if [[ $CIRCLE_SHELL_ENV == *"localbuild"* ]]; then
+                    echo "export docker='sudo docker'" >> $BUILD_ENV
+                else
+                    echo "export docker='docker'" >> $BUILD_ENV
+                fi
         - attach_workspace:
             at: ~/tags
         - run:
             name: Load Archived Docker Images
             command: |
-            $docker load -i ~/tags/$LATEST_TAG.tar
+                $docker load -i ~/tags/$LATEST_TAG.tar
         - run:
             name: Publish Docker Images
             command: |
-            echo "$DOCKERHUB_TOKEN" | $docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-            $docker push $IMAGE_NAME:$LATEST_TAG
+                echo "$DOCKERHUB_TOKEN" | $docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+                $docker push $IMAGE_NAME:$LATEST_TAG
 workflows:
     version: 2
     build_testing_public:
