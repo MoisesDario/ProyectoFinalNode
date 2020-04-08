@@ -52,9 +52,34 @@ jobs:
                     - latest.tar   
             - run: 
                 name: Testing
-                command: npm install     
+                command: npm install    
+Testing:
+    executor: custom-executor
+    steps:
+        - setup_remote_docker
+        - run:
+            name: Set Up Docker Command
+            command: |
+            if [[ $CIRCLE_SHELL_ENV == *"localbuild"* ]]; then
+                echo "export docker='sudo docker'" >> $BUILDER_ENV
+            else
+                echo "export docker='docker'" >> $BUILDER_ENV
+            fi
+        - attach_workspace:
+            at: ~/tags
+        - run:
+            name: Load Archived Docker Desarrollo Image
+            command: |
+            $docker load -i ~/tags/$DESARROLLO_TAG.tar
+        - run:
+            name: Run Unit Test
+            command: |
+            $docker run -it $IMAGE_NAME:$DESARROLLO_TAG sh -c 'node Testing ./...' 
 workflows:
     version: 2
     build-and-test:
         jobs:
             - build
+            - Testing
+                requires:
+                    - build
