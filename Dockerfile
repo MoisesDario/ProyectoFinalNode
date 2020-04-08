@@ -1,5 +1,5 @@
 FROM node:carbon-alpine AS builder
-WORKDIR /usr/src/app/node
+WORKDIR /usr/src/app/proyectofinal
 COPY package*.json ./
 COPY . .
 

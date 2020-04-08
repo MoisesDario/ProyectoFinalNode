@@ -1,9 +1,7 @@
 version: '3.7'
 services: 
     app:
-        build: 
-        image: 'mdlfvan/proyectofinal:latest' 
         ports: 
-            - '9007:9007'
+            - '8080:8080'
         volumenes:
-            - .:/usr/src/app/node
+            - .:/usr/src/app/proyectofinal

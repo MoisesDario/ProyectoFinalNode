@@ -3,9 +3,10 @@ services:
     app: 
         build: 
             context: 
+            dockerfile: dockerfile    
             targed: desarrollo
-        image: 'mdlfvan/proyectofinal:latest' 
+        image: 'mdlfvan/proyectofinal:desarrollo' 
         ports: 
             - '9007:9007'
         volumes:
-            - .:/usr/src/app/node
+            - .:/usr/src/app/proyectofinal
